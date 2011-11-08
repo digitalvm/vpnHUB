@@ -2,3 +2,8 @@ vpnHUB is an open source 'out of the box' app for installing and managing smart 
 
 Current supported systems :
 	Debian 6.x
+    
+/* RFC */
+vpnHUB uses 8080 port for management interface
+
+8080	TCP		HTTP alternate (http_alt)—commonly used for Web proxy and caching server, or for running a Web server as a non-root user	Official
