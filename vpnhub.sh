@@ -17,13 +17,12 @@
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 # vars
 
 VPNHUB_PATH=`basename $0`
 VPNHUB_TUN0=`/sbin/ifconfig | grep tun | awk '{print $1}'`
-VPNHUB_IP=`grep address /etc/network/interfaces | grep -v 127.0.0.1  | awk '{print $2}'`
-
+VPNHUB_IP=`grep address /etc/network/interfaces | awk '{print $2}'`
+VPNHUB_ROUTE=`grep gateway /etc/network/interfaces | awk '{print $2}'`
 
 # func
 
@@ -57,8 +56,16 @@ function debian6_nat_client {
         /sbin/iptables -t nat -A POSTROUTING -s $VPNHUB_TUN0 -j SNAT --to $VPNHUB_IP
         }
 
+# debug
+
 #debian_install_bin
 #debian6_nat_client
+
+if [ ! -n "$1" ]
+then
+  echo "Usage: `basename $0` --help"
+  exit $E_BADARGS
+fi
 
 echo -en "\n\nSorry, vpnHUB is under development, visit http://vpnhub.digvm.com\n\n"
 exit 1
